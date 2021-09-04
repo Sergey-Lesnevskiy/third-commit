@@ -10,8 +10,6 @@ public class UserSelector {
     public SelenideElement clickAdmin = $("#menu_admin_viewAdminModule");
     public SelenideElement clickAdd = $("#btnAdd");
     public SelenideElement useRole = $(By.name("systemUser[userType]"));
-    public SelenideElement userAdmin = $(By.xpath("//option[text()='Admin']"));
-    public SelenideElement userDisable = $(By.xpath("//option[text()='Disabled']"));
     public SelenideElement employeeName = $(By.name("systemUser[employeeName][empName]"));
     public SelenideElement username1 = $("#systemUser_userName");
     public SelenideElement statusUser = $("#systemUser_status");
@@ -24,7 +22,6 @@ public class UserSelector {
     public SelenideElement checkEmployee =$("[name='searchSystemUser[employeeName][empName]']");
     public SelenideElement checkStatus =$("#searchSystemUser_status");
     public SelenideElement checkESS =$(By.xpath("//option[text()='Admin']"));
-    public SelenideElement checkDisabled =$(By.xpath("//option[text()='Disabled']"));
     public SelenideElement checkSearch=$("[value='Search']");
     public SelenideElement tableClassUser = $("[class='table hover']");
 }
