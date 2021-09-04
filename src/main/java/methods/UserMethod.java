@@ -1,9 +1,10 @@
 package methods;
 
-import com.codeborne.selenide.Condition;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+
+import io.qameta.allure.Step;
 import org.junit.gen5.api.Assertions;
 import selectors.UserSelector;
 import utils.Log;
@@ -14,14 +15,12 @@ import java.util.Properties;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
 
 
 public class UserMethod extends UserSelector {
-    String disabled = "Disabled";
-    String admin = "Admin";
     Properties props = new Properties();
 
+    @Step("Переходим в разел добавления User в разделе Admin")
     public void switchingToUser() {
         Log.info("Переходим в разел админ");
         clickAdmin.click();
@@ -29,16 +28,17 @@ public class UserMethod extends UserSelector {
         clickAdd.click();
     }
 
+    @Step("Заполняем поля User в разделе Admin")
     public void formFilling() throws IOException {
         Log.info("Выбираем какая будет Use Role");
-        useRole.selectOptionContainingText(admin);
+        useRole.selectOptionContainingText("Admin");
         props.load(new FileInputStream("src/main/resources/user.properties"));
         Log.info("Ввели значения employeeName");
         employeeName.sendKeys(props.getProperty("user.Employee"));
         Log.info("Ввели значения userName");
         username1.sendKeys(props.getProperty("user.Username"));
         Log.info("Выбираем какой будет status User");
-        statusUser.selectOptionContainingText(disabled);
+        statusUser.selectOptionContainingText("Disabled");
         Log.info("Ввели значения password user");
         password1.sendKeys(props.getProperty("user.Password"));
         Log.info("Ввели значения повторно password user");
@@ -49,22 +49,24 @@ public class UserMethod extends UserSelector {
         Selenide.sleep(2000);
     }
 
+    @Step("Производим поиск User  в разделе Admin")
     public void findUser() throws IOException {
         props.load(new FileInputStream("src/main/resources/user.properties"));
         Log.info("Производим поиск user и вводим Username");
         checkName.sendKeys(props.getProperty("user.Username"));
         Log.info("Выбираем Use Role");
-        checkRole.selectOptionContainingText(admin);
+        checkRole.selectOptionContainingText("Admin");
         checkESS.click();
         Log.info("Ввели значения Employee");
         checkEmployee.sendKeys(props.getProperty("user.Employee"));
         Log.info("Выбираем status User");
-        checkStatus.selectOptionContainingText(disabled);
+        checkStatus.selectOptionContainingText("Disable");
         Log.info("Проводим поиск user");
         checkSearch.click();
         Selenide.sleep(2000);
     }
 
+    @Step("Проверяем формы ввода для заполнения user в разделе Admin")
     public void checkFormUser() {
         Log.info("Проверяем формы ввода для заполнения user");
         employeeName.shouldBe(visible);
@@ -73,6 +75,7 @@ public class UserMethod extends UserSelector {
         confirmPassword.shouldBe(exist);
     }
 
+    @Step("проверяем наличие User на странице")
     public void checkUser() {
         Log.info("проверяем наличие User на странице");
         ElementsCollection elements = tableClassUser.$$("tr");

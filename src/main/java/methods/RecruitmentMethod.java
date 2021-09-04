@@ -1,12 +1,13 @@
 package methods;
 
 
-import com.codeborne.selenide.ElementsCollection;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
+import io.qameta.allure.Step;
+
 import selectors.RecruitmentSelector;
-import text.RecruitmentText;
+
 import utils.Log;
 
 import java.io.FileInputStream;
@@ -14,20 +15,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com.codeborne.selenide.Selenide.$;
 import static org.junit.gen5.api.Assertions.assertEquals;
 
 public class RecruitmentMethod extends RecruitmentSelector {
     Properties props = new Properties();
-    RecruitmentText recruitmentText = new RecruitmentText();
-
+   @Step("Переходим в раздел добавления Recruitment")
     public void goToAdd() {
         Log.info("Переходим в раздел добавления Recruitment");
         recruimentClick.click();
         candidatesClick.click();
         candidatesAddClick.click();
     }
-
+    @Step("Заполняем поля пользователя в Recruitment")
     public void fillingInTheCandidates() throws IOException {
         props.load(new FileInputStream("src/main/resources/candidate.properties"));
         Log.info("Вводим данные в поля заполнения кандидата");
@@ -47,7 +46,7 @@ public class RecruitmentMethod extends RecruitmentSelector {
         buttonSaveCandidates.click();
         buttonBackCandidates.click();
     }
-
+    @Step("Проверяем наличие кандидата в списке Recruitment")
     public void checkCandidatesRe() throws IOException {
         props.load(new FileInputStream("src/main/resources/candidate.properties"));
         Log.info("Произвадим поиск по персональному ключу");

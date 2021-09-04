@@ -12,8 +12,15 @@ import org.junit.jupiter.api.TestInstance;
 import java.io.IOException;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class DashboardTest extends Before {
+public class AllTests extends Before {
     DashboardMethod dashboardMethod = new DashboardMethod();
+    LoginMethod loginMethod = new LoginMethod();
+    UserMethod userMethod = new UserMethod();
+    JobTitleMethod jobTitleMethod = new JobTitleMethod();
+    LeaveMethod leaveMethod = new LeaveMethod();
+    PimEmployeeMethod pimEmployeeMethod = new PimEmployeeMethod();
+    LogoutMethod logoutMethod = new LogoutMethod();
+    RecruitmentMethod recruitmentMethod = new RecruitmentMethod();
 
     @Attachment
     @Description("Check Quick Launce")
@@ -68,10 +75,6 @@ public class DashboardTest extends Before {
 
     }
 
-    UserMethod userMethod = new UserMethod();
-    JobTitleMethod jobTitleMethod = new JobTitleMethod();
-
-
     @Attachment
     @Description("Job Add")
     @Severity(SeverityLevel.CRITICAL)
@@ -88,9 +91,6 @@ public class DashboardTest extends Before {
         jobTitleMethod.checkDeleteJob();
     }
 
-    LeaveMethod leaveMethod = new LeaveMethod();
-
-
     @Attachment
     @Description("Test Leave")
     @Severity(SeverityLevel.MINOR)
@@ -104,8 +104,6 @@ public class DashboardTest extends Before {
         leaveMethod.checkLeaveEmployee();
     }
 
-    LoginMethod loginMethod = new LoginMethod();
-
     @Attachment
     @Description("Test Login")
     @Severity(SeverityLevel.BLOCKER)
@@ -113,11 +111,9 @@ public class DashboardTest extends Before {
     @Owner("Sergey")
     @Test
     @Order(6)
-    public void loginTest() {
+    public void testLogin() {
         loginMethod.welcomeMessage();
     }
-
-    PimEmployeeMethod pimEmployeeMethod = new PimEmployeeMethod();
 
     @Attachment
     @Description("Test Leave")
@@ -155,7 +151,6 @@ public class DashboardTest extends Before {
         pimEmployeeMethod.checkAttachments();
     }
 
-    RecruitmentMethod recruitmentMethod = new RecruitmentMethod();
     @Attachment
     @Description("Test Candidates")
     @Severity(SeverityLevel.CRITICAL)
@@ -163,7 +158,7 @@ public class DashboardTest extends Before {
     @Owner("Sergey")
     @Test
     @Order(10)
-    public void TestCandidates() throws IOException {
+    public void testCandidates() throws IOException {
         recruitmentMethod.goToAdd();
         recruitmentMethod.fillingInTheCandidates();
         recruitmentMethod.checkCandidatesRe();
@@ -176,7 +171,7 @@ public class DashboardTest extends Before {
     @Owner("Sergey")
     @Test
     @Order(11)
-    public void checkFormUser() {
+    public void testCheckFormUser() {
         userMethod.switchingToUser();
         userMethod.checkFormUser();
     }
@@ -188,14 +183,13 @@ public class DashboardTest extends Before {
     @Owner("Sergey")
     @Test
     @Order(12)
-    public void addUserTest() throws IOException {
+    public void testAddUser() throws IOException {
         userMethod.switchingToUser();
         userMethod.formFilling();
         userMethod.findUser();
         userMethod.checkUser();
     }
 
-    LogoutMethod logoutMethod = new LogoutMethod();
     @Attachment
     @Description("Test Log Out")
     @Severity(SeverityLevel.TRIVIAL)
@@ -203,7 +197,7 @@ public class DashboardTest extends Before {
     @Owner("Sergey")
     @Test
     @Order(13)
-    public void logOut(){
+    public void testLogOut(){
         logoutMethod.loginOut();
     }
 

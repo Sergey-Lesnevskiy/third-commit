@@ -1,18 +1,15 @@
 package methods;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.gen5.api.Assertions;
 import selectors.PimEmployeeSelector;
 import utils.Log;
-
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
+
 
 public class PimEmployeeMethod extends PimEmployeeSelector {
-
+@Step("Переходим в персональные данные в разделе Pim")
     public void goToEmployeePim() {
         Log.info("Переходим на вкладку Pim");
         pimClick.click();
@@ -22,7 +19,7 @@ public class PimEmployeeMethod extends PimEmployeeSelector {
         Log.info("Переходим к персональной информации Nathan");
         nathanClick.click();
     }
-
+    @Step("Проверяем форму Personal Details в разделе Pim")
     public void checkPersonalDetails() {
         Log.info("Проверяем форму Personal Details");
         fotoPim.shouldBe(visible);
@@ -40,7 +37,7 @@ public class PimEmployeeMethod extends PimEmployeeSelector {
         radio1Pim.shouldBe(visible);
         radio2Pim.shouldBe(visible);
     }
-
+    @Step("Проверяем форму  Custom Fields в разделе Pim")
     public void checkCustomFields() {
         Log.info("Проверяем форму  Custom Fields");
         editCustomFieldsClick.shouldBe(exist);
@@ -48,7 +45,7 @@ public class PimEmployeeMethod extends PimEmployeeSelector {
         Assertions.assertEquals(expectedPim, actual.texts());
 
     }
-
+    @Step("Проверяем форму  Add Attachment в разделе Pim")
     public void checkAttachments() {
         Log.info("Проверяем форму  Add Attachment");
         editAttachmentsPimClick.click();

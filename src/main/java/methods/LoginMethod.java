@@ -1,6 +1,6 @@
 package methods;
 
-import com.codeborne.selenide.Configuration;
+import io.qameta.allure.Step;
 import selectors.LoginSelector;
 import utils.Log;
 
@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.open;
 
 public class LoginMethod extends LoginSelector {
     Properties props = new Properties();
 
+    @Step("Заполняем поля регистрации на начальной странице")
     public void fillingInTheLogin() throws IOException {
 
         props.load(new FileInputStream("src/main/resources/login.properties"));
@@ -30,10 +30,4 @@ public class LoginMethod extends LoginSelector {
         welcomeMessage.shouldBe(visible);
     }
 
-    public void openPage() {
-        Log.info("Открываем страницу для ввода логина и пароля");
-        open("https://opensource-demo.orangehrmlive.com/");
-
-
-    }
 }

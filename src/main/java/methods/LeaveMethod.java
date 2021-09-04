@@ -1,22 +1,19 @@
 package methods;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
+import io.qameta.allure.Step;
 import selectors.LeaveSelector;
 import utils.Log;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
 
 public class LeaveMethod extends LeaveSelector {
     Properties props = new Properties();
 
+    @Step("Заполняем заявление на отпуск в разделе Leave")
     public void goToTheLeave() throws IOException {
         Log.info("Переходим на вкладку Leave ");
         props.load(new FileInputStream("src/main/resources/leave.properties"));
@@ -26,23 +23,17 @@ public class LeaveMethod extends LeaveSelector {
         employeeNameLeave.sendKeys(props.getProperty("leave.employee"));
         Log.info("Выбираем тип отпуска");
         typeLeaveSelect.selectOptionContainingText("CAN - Vacation");
-        //changTypeLeave.click();
         Log.info("Выбираем дату начала отпуска");
-       // fromDateLeave.click();
         fromDateLeave.setValue(props.getProperty("leave.from"));
         clickFromDateLeave.click();
         Log.info("Выбираем дату окончания отпуска");
         toDateLeave.click();
-       // toDateLeave.clear();
         toDateLeave.setValue(props.getProperty("leave.to"));
         clickToDateLeave.click();
         Log.info("Выбираем Duration");
         partialDaysLeave.selectOptionContainingText("Start Day Only");
-       // startDayOnlyPartial.click();
         startDayHalfDay.selectOptionContainingText("Half Day");
-      //  startDayHalfDayClick.click();
         startDayAfternoon.selectOptionContainingText("Afternoon");
-      //  startDayAfternoonClick.click();
         Log.info("Запись комментария");
         сommentLeave.sendKeys(props.getProperty("leave.comments"));
         Log.info("Сохраняем данные");
@@ -50,6 +41,7 @@ public class LeaveMethod extends LeaveSelector {
         okLeave.click();
     }
 
+    @Step("Проиводим поиск заявления в разделе Leave")
     public void findLeaveEmployee() {
         Log.info("Производим поиск сохранённого заявления на отпуск");
         checkLeaveListClick.click();
@@ -58,9 +50,10 @@ public class LeaveMethod extends LeaveSelector {
         searchLeaveListClick.click();
     }
 
+    @Step("Проверяем наличеи записи в разделе Leave")
     public void checkLeaveEmployee() {
         Log.info("Проверяем наличие записи");
-        ElementsCollection elements = tableLeaveList1.$$(withText("John Smith"));
+        ElementsCollection elements = tableLeaveList1.$$(withText(props.getProperty("leave.employee")));
 
 
     }

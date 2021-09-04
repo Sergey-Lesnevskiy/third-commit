@@ -1,21 +1,16 @@
 package methods;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.junit.gen5.api.Assertions;
 import org.openqa.selenium.By;
 import selectors.JobSelector;
 import utils.Log;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
-import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
@@ -24,12 +19,14 @@ import static com.codeborne.selenide.Selenide.$$;
 public class JobTitleMethod extends JobSelector {
     Properties props = new Properties();
 
+    @Step("Переходим на в раздел Job")
     public void goToTheJob() {
-        Log.info("Переходим на Job");
+        Log.info("Переходим на в раздел Job");
         jobSelector.click();
         jobTitles.click();
     }
 
+    @Step("Добавляем 3 вакансии в раздел Job")
     public void addJobTitles() throws IOException {
 
         props.load(new FileInputStream("src/main/resources/job.properties"));
@@ -43,6 +40,7 @@ public class JobTitleMethod extends JobSelector {
         }
     }
 
+    @Step("Проверяем наличие вакансий в раздел Job")
     public void checkJob() throws IOException {
         props.load(new FileInputStream("src/main/resources/job.properties"));
         ElementsCollection list = $$(withText("rock-musician"));
@@ -52,17 +50,18 @@ public class JobTitleMethod extends JobSelector {
         }
     }
 
+    @Step("Удаляем созданные 3 вакансии в раздел Job")
     public void deleteJobTitles() {
         Log.info("Удаляем созданные 3 вакансии");
         for (int i = 0; i < 3; i++) {
             $(By.xpath("//a[text()='" + props.getProperty("job.titles" + i) + "']/../../td[1]"))
                     .click();
-
         }
         deleteButton.click();
         deleteOk.click();
     }
 
+    @Step("Проверяем удаление в раздел Job")
     public void checkDeleteJob() {
         Log.info("Проверяем удаление");
         tableJob.shouldNotBe(text("rock-musician1"));
