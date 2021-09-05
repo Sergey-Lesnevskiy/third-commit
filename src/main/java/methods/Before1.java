@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import org.junit.gen5.api.AfterAll;
 import utils.Log;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
 public class Before1 {
